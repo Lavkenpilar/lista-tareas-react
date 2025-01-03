@@ -31,6 +31,12 @@ console.log (lista)
 const capturaInput = (e) => {
     setNombreTarea (e.target.value)
     }
+const completarTarea = (tarea)=>{
+    const nuevasTareas=[...listaTareas]
+    const index = nuevasTareas.findIndex (el=>el.nombre===tarea.nombre)
+    nuevasTareas[index].completada=true
+    setListaTareas (nuevasTareas)
+}
 return (
     <div>
         <form onSubmit = {enviarFormulario}>
@@ -42,7 +48,7 @@ return (
             {listaTareas.map(tarea => (
                 <li key={tarea.nombre} 
                 onClick={()=>console.log(tarea)}
-                style={tarea.completada===true ?{textDecoration:'line-through'} : {}}> {tarea.nombre}</li>))}
+                style={tarea.completada===true ?{textDecoration:'line-through'} : {}}> {tarea.nombre}{tarea.completada===false?<button onClick={()=>completarTarea(tarea)}>Completar</button>:''}</li>))}
         </ul>
 
     </div>
