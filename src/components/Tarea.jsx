@@ -1,11 +1,12 @@
 import { useState } from "react"
+import { tareasIniciales } from "../TareasIniciales"
 
 const Tarea = () => {
     //estado asociado a la información proveniente del input
     const [nombreTarea, setNombreTarea] = useState ("")
     /*const listaTareas = ["Tarea1", "Tarea2", "Tarea3"]*/
     //se modifica el array listaTareas, en la forma de un estado para que la lista se actualice de manera automática toda vez que se incorpore una nueva tarea
-    const [listaTareas, setListaTareas] = useState(["Tarea1", "Tarea2", "Tarea3"])
+    const [listaTareas, setListaTareas] = useState (tareasIniciales)
 
     // Recordando el método map: creamos un nuevo arreglo llamado lista, que contendrá el resultado de la función del método map, en este caso convertir cada tarea a mayúscula
 /*const lista = listaTareas.map((tarea)=>tarea.toUpperCase())
@@ -23,29 +24,25 @@ console.log (lista)
                 e.preventDefault ()
        //console.log ('enviando formulario')
        
-       setListaTareas ([...listaTareas, nombreTarea])  // se agrega una nueva tarea con el método spread
-       setNombreTarea ("") // vaciar el formulario
-    
-    }
+       setListaTareas ([...listaTareas, {nombre:nombreTarea, completada:false}])  // se agrega una nueva tarea con el método spread y la tarea corresponde a un dato introducido desde el input, el cual contendra un nombre y la propiedad completada, siguiendo la estructura del objeto TareasInciales
+       setNombreTarea ("") // vaciar el formulario.
+        }
 //funcion al escribir sobre el input del formulario
 const capturaInput = (e) => {
     setNombreTarea (e.target.value)
-    
-    
-}
-
-
+    }
 return (
-
     <div>
         <form onSubmit = {enviarFormulario}>
             <input name="nombreTarea" onChange={capturaInput}/> 
             <button>Agregar tarea </button>
         </form>
-
         <ul>
             
-            {listaTareas.map(tarea => <li key={tarea}> {tarea}</li>)}
+            {listaTareas.map(tarea => (
+                <li key={tarea.nombre} 
+                onClick={()=>console.log(tarea)}
+                style={tarea.completada===true ?{textDecoration:'line-through'} : {}}> {tarea.nombre}</li>))}
         </ul>
 
     </div>
